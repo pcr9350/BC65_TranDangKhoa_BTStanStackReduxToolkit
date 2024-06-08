@@ -66,7 +66,7 @@ const UpdateStore = (props) => {
         <div className='w-75 mx-auto'>
         <div className="form-group">
               <label htmlFor="id">ID</label>
-              <input type="text" name='id' className='form-control' id='frmIdUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='id' className='form-control' id='frmIdUpdate' readOnly onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>

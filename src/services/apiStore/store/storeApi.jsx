@@ -2,11 +2,33 @@
 import { httpStore } from "../../../util/config";
 
 export class StoreApi {
+    // lấy toàn bộ store
     async getAll() {
         const res = await httpStore.get('/api/Store/getAll');
         // console.log(res.data.content)
         return res.data.content;
+    };
+    // lấy theo id
+    async getById(id) {
+        const res = await httpStore.get(`/api/Store/getbyid?id=${id}`);
+        return res.data.content;
+    };
+    // Thêm
+    async addStore(storeRegisterForm) {
+        const res = await httpStore.post('/api/Store', storeRegisterForm);
+        return res.data.content;
+    };
+    // Sửa 
+    async updateStore(storeUpdateForm) {
+        const res = await httpStore.put(`/api/Store?id=${storeUpdateForm.id}`, storeUpdateForm);
+        return res.data.content;
+    };
+    // Xóa
+    async deleteStore(id) {
+        const res = await httpStore.delete('/api/Store', id);
+        return res.data.content;
     }
+
 
     // {
     //     "id": 1,

@@ -7,6 +7,7 @@ import { httpStore } from '../../util/config';
 import UpdateStore from './UpdateStore';
 import { openModalAction } from '../../redux/reducers/modalReducer';
 import { useDispatch } from 'react-redux';
+import { storeApi } from '../../services/apiStore/store/storeApi';
 
 
 const StoreList = () => {
@@ -68,7 +69,16 @@ const columns = [
     </button>
 
         <button className='btn btn-danger' onClick={()=>{
-          httpStore.delete('/api/Store', record.id);
+          try {
+            const id = `[${record.id}]`;
+            const deleteStore = storeApi.deleteStore(id);
+            console.log(deleteStore);
+            // Handle successful deletion
+          } catch (error) {
+            // Handle deletion errors
+            console.error("Error deleting store:", error);
+          }
+         
         }}>Delete</button>
       </Space>
     ),
