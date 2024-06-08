@@ -1,4 +1,5 @@
 // import axios from "axios";
+import axios from "axios";
 import { httpStore } from "../../../util/config";
 
 export class StoreApi {
@@ -25,6 +26,7 @@ export class StoreApi {
     };
     // Xóa
     async deleteStore(id) {
+        console.log(id)
         const res = await httpStore.delete('/api/Store', id);
         return res.data.content;
     }

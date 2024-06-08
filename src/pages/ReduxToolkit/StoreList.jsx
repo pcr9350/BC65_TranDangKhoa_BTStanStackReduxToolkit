@@ -70,7 +70,9 @@ const columns = [
 
         <button className='btn btn-danger' onClick={()=>{
           try {
-            const id = `[${record.id}]`;
+            const id = [];
+            id.push(Number(record.id));
+            console.log(id);
             const deleteStore = storeApi.deleteStore(id);
             console.log(deleteStore);
             // Handle successful deletion

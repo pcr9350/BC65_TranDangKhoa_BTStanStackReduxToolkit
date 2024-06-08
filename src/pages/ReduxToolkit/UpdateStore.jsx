@@ -28,7 +28,7 @@ const UpdateStore = (props) => {
   const {storeById} = state.storeReducer;
 
   useEffect(()=>{
-    document.querySelector('#frmIdUpdate').value = storeById.id;
+    document.querySelector('#frmIdUpdate').value = +storeById.id;
     document.querySelector('#frmNameUpdate').value = storeById.name;
     document.querySelector('#frmAliasUpdate').value = storeById.alias;
     document.querySelector('#frmLatUpdate').value = storeById.latitude;
@@ -41,7 +41,7 @@ const UpdateStore = (props) => {
 
     const frmUpdate = useFormik({
       initialValues: {
-        id: "",
+        id: 0,
         name: "",
         alias: "",
         latitude: "",
