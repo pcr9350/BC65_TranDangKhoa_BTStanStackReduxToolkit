@@ -40,7 +40,7 @@ const AdminTemplate = () => {
                 icon: <UserOutlined />,
                 label: 'Store Management',
                 onClick: (event) => {
-                    navigate('/admin/storeList')
+                    navigate('/admin/store-list')
                 }
               },
               {
@@ -88,7 +88,7 @@ const AdminTemplate = () => {
                 icon: <BackwardFilled />,
                 label: 'Về trang chủ',
                 onClick: (event) => {
-                    navigate('/')
+                    navigate('/admin/store-list')
                 }
               },
               

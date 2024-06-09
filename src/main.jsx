@@ -17,6 +17,8 @@ import AdminTemplateTanStack from './templates/AdminTemplateTanStack'
 import StoreList from './pages/ReduxToolkit/StoreList'
 import CreateStore from './pages/ReduxToolkit/CreateStore'
 import ModalRedux from './pages/ModalRedux'
+import QueryStoreList from './pages/TanstackQuery/QueryStoreList'
+import QueryCreateStore from './pages/TanstackQuery/QueryCreateStore'
 
 const queryClient = new QueryClient()
 // history tương tự navigate dùng để chuyển hướng trang ở một trang không phải component
@@ -30,12 +32,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="" element={<HomeTemplate />}>
           <Route path='/' element={<AdminTemplate />} />
           <Route path='/admin' element={<AdminTemplate />}>
-            <Route path='/admin/storeList' element={<StoreList />} />
+            <Route path='/admin/store-list' element={<StoreList />} />
             <Route path='/admin/create-store' element={<CreateStore />} />
           </Route>
 
           <Route path='/admin-tanstack' element={<AdminTemplateTanStack />}>
-
+          <Route path='/admin-tanstack/query-store-list' element={<QueryStoreList />} />
+          <Route path='/admin-tanstack/query-create-store' element={<QueryCreateStore />} />
           </Route>
         </Route>
         </Routes>

@@ -1,70 +1,8 @@
-import React, { useEffect } from 'react'
-import { Space, Table, Tag } from 'antd';
-import { NavLink } from 'react-router-dom';
-import useRedux from '../../CustomHook/useRedux';
-import { getStoreByIdActionApi, getStoreListActionApi, updateStoreActionAsync } from '../../redux/reducers/storeReducer';
-import { httpStore } from '../../util/config';
+import React from 'react'
 
-import { useFormik } from 'formik';
-import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
-import FormUpdateStore from '../../components/FormUpdateStore';
-
-
-const UpdateStore = (props) => {
-    const {state,dispatch} = useRedux();
-  
-  useEffect(()=>{
-    //   mounting component
-      const payload = frmUpdate.handleSubmit;
-      const action = setSubmitModalFunctionAction(payload);
-      dispatch(action);
-
-      
-    const actionThunk = getStoreByIdActionApi(props.id);
-    // console.log(actionThunk)
-        dispatch(actionThunk)
-        
-  },[props.id]);
-
-  const {storeById} = state.storeReducer;
-
-  useEffect(()=>{
-    document.querySelector('#frmIdUpdate').value = +storeById.id;
-    document.querySelector('#frmNameUpdate').value = storeById.name;
-    document.querySelector('#frmAliasUpdate').value = storeById.alias;
-    document.querySelector('#frmLatUpdate').value = storeById.latitude;
-    document.querySelector('#frmLongUpdate').value = storeById.longtitude;
-    document.querySelector('#frmDesUpdate').value = storeById.description;
-    document.querySelector('#frmImageUpdate').value = storeById.description;
-  }, [storeById.id])
-
-  
-
-    const frmUpdate = useFormik({
-      initialValues: {
-        id: 0,
-        name: "",
-        alias: "",
-        latitude: "",
-        longtitude: "",
-        description: "",
-        image: "",
-        deleted: true
-      },
-      onSubmit: (values) => {
-        // console.log(values);
-        console.log(values)
-        // Cách 2: ActionAsync từ createActionThunk
-        const actionThunk = updateStoreActionAsync(values);
-        dispatch(actionThunk)
-        getStoreListActionApi();
-      }
-    });
-    
+const FormUpdateStore = () => {
   return (
-    <div className="container">
-    <h3>Update Store</h3>
-    {/* <form action="" className='container' onSubmit={frmUpdate.handleSubmit}>
+    <form action="" className='container' onSubmit={frmUpdate.handleSubmit}>
         
         <div className='w-75 mx-auto'>
         <div className="form-group">
@@ -110,10 +48,8 @@ const UpdateStore = (props) => {
               <button className='btn btn-dark mt-2' type='submit'>Update</button>
             </div>
         </div>
-      </form> */}
-      <FormUpdateStore />
-      </div>
+      </form>
   )
 }
 
-export default UpdateStore
+export default FormUpdateStore

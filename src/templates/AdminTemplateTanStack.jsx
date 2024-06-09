@@ -35,22 +35,22 @@ const AdminTemplateTanStack = () => {
             mode="inline"
             defaultSelectedKeys={['1']}
             items={[
-            //   {
-            //     key: '1',
-            //     icon: <UserOutlined />,
-            //     label: 'User management',
-            //     onClick: (event) => {
-            //         navigate('/admin/users')
-            //     }
-            //   },
-            //   {
-            //     key: '2',
-            //     icon: <UserAddOutlined />,
-            //     label: 'Create User',
-            //     onClick: (event) => {
-            //         navigate('/admin/user-create')
-            //     }
-            //   },
+              {
+                key: '1',
+                icon: <UserOutlined />,
+                label: 'Query User Management',
+                onClick: (event) => {
+                    navigate('/admin-tanstack/query-store-list')
+                }
+              },
+              {
+                key: '2',
+                icon: <UserAddOutlined />,
+                label: 'Query Create User',
+                onClick: (event) => {
+                    navigate('/admin-tanstack/query-create-store')
+                }
+              },
             //   {
             //     key: '3',
             //     icon: <UserOutlined />,
@@ -88,7 +88,7 @@ const AdminTemplateTanStack = () => {
                 icon: <BackwardFilled />,
                 label: 'Về trang chủ',
                 onClick: (event) => {
-                    navigate('/')
+                    navigate('/admin-tanstack/query-store-list')
                 }
               },
               
