@@ -1,8 +1,10 @@
 import { useFormik } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
-import { addStoreActionAsync } from '../../redux/reducers/storeReducer';
-// import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
+import { addStoreActionAsync, getStoreListActionApi } from '../../redux/reducers/storeReducer';
+import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
+import * as Yup from 'yup'
+
 
 const CreateStore = () => {
     // {
@@ -33,16 +35,17 @@ const CreateStore = () => {
   
         // Cách 2: ActionAsync từ createActionThunk
         const actionThunk = addStoreActionAsync(values);
-        dispatch(actionThunk)
+        dispatch(actionThunk);
+        getStoreListActionApi();
+
       },
+      validationSchema: Yup.object().shape({
+        name: Yup.string().required('name cannot be blank!'),
+        image: Yup.string().required('image cannot be blank!'),
+      })
     });
   
-    useEffect(()=>{
-      //mounting component
-    //   const payload = frmRegister.handleSubmit;
-    //   const action = setSubmitModalFunctionAction(payload);
-    //   dispatch(action);
-  },[])
+    
     return (
       <form action="" className='container' onSubmit={frmRegister.handleSubmit}>
         <h3>Create Store</h3>
@@ -50,6 +53,7 @@ const CreateStore = () => {
             <div className="form-group">
               <label htmlFor="">Name</label>
               <input type="text" name='name'  className='form-control' onChange={frmRegister.handleChange} />
+              {frmRegister.errors.name && <p className='text text-danger'>{frmRegister.errors.name}</p>}
             </div>
             <div className="form-group">
               <label htmlFor="">Alias</label>
@@ -70,6 +74,7 @@ const CreateStore = () => {
             <div className="form-group">
               <label htmlFor="">Image</label>
               <input type="text" name='image' className='form-control' onChange={frmRegister.handleChange}/>
+              {frmRegister.errors.image && <p className='text text-danger'>{frmRegister.errors.image}</p>}
             </div>
             <div className="form-group mx-2 my-2">
               <label htmlFor="" className='me-2'>Deleted: </label>

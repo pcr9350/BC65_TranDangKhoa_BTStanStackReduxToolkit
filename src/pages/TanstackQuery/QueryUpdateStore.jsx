@@ -3,11 +3,10 @@ import useRedux from '../../CustomHook/useRedux';
 import {  useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { storeApi } from '../../services/apiStore/store/storeApi';
 import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
-import FormUpdateStore from '../../components/FormUpdateStore';
-
+import * as Yup from 'yup'
 const QueryUpdateStore = (props) => {
     const {state,dispatch} = useRedux();
-
+    
     const queryClient = useQueryClient();
     const mutation = useMutation({
         mutationKey: ['updateStoreApi'],
@@ -32,14 +31,18 @@ const QueryUpdateStore = (props) => {
         refetchOnWindowFocus: true, //kích vào cửa sổ browser thì queryFn chạy
     });
 
-    document.querySelector('#frmIdUpdate').value = +data.id;
-    document.querySelector('#frmNameUpdate').value = data.name;
-    document.querySelector('#frmAliasUpdate').value = data.alias;
-    document.querySelector('#frmLatUpdate').value = data.latitude;
-    document.querySelector('#frmLongUpdate').value = data.longtitude;
-    document.querySelector('#frmDesUpdate').value = data.description;
-    document.querySelector('#frmImageUpdate').value = data.description;
-    }, [props.id])
+    frmUpdate.setValues(
+      {
+      id: data.id,
+      name: data.name,
+      alias: data.alias,
+      latitude: data.latitude,
+      longtitude: data.longtitude,
+      description: data.description,
+      image: data.image,
+      deleted: data.deleted
+    })
+    }, [data.id])
 
 
 
@@ -57,41 +60,47 @@ const QueryUpdateStore = (props) => {
         onSubmit: (values) => {
           // Lấy dữ liệu từ form thành công
           mutation.mutateAsync(values);
-        }
+        },
+        validationSchema: Yup.object().shape({
+          name: Yup.string().required('name cannot be blank!'),
+          image: Yup.string().required('image cannot be blank!'),
+        }),
       });
   return (
     <div className="container">
     <h3>Query Update Store</h3>
-    {/* <form action="" className='container' onSubmit={frmUpdate.handleSubmit}>
+    <form action="" className='container' onSubmit={frmUpdate.handleSubmit}>
         
         <div className='w-75 mx-auto'>
         <div className="form-group">
               <label htmlFor="id">ID</label>
-              <input type="text" name='id' className='form-control' id='frmIdUpdate' readOnly onChange={frmUpdate.handleChange}/>
+              <input type="text" name='id' className='form-control' readOnly value={frmUpdate.values.id} onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" name='name' className='form-control' id='frmNameUpdate' onChange={frmUpdate.handleChange} />
+              <input type="text" name='name' className='form-control' value={frmUpdate.values.name} onChange={frmUpdate.handleChange} />
+              {frmUpdate.errors.name && <p className='text text-danger'>{frmUpdate.errors.name}</p>}
             </div>
             <div className="form-group">
               <label htmlFor="alias">Alias</label>
-              <input type="text" name='alias' className='form-control' id='frmAliasUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='alias' className='form-control' value={frmUpdate.values.alias} onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="latitude">Latitude</label>
-              <input type="text" name='latitude' className='form-control' id='frmLatUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='latitude' className='form-control' value={frmUpdate.values.latitude} onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="longtitude">Longtitude</label>
-              <input type="text" name='longtitude' className='form-control' id='frmLongUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='longtitude' className='form-control' value={frmUpdate.values.longtitude} onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="description">Description</label>
-              <input type="text" name='description' className='form-control' id='frmDesUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='description' className='form-control' value={frmUpdate.values.description} onChange={frmUpdate.handleChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="image">Image</label>
-              <input type="text" name='image' className='form-control' id='frmImageUpdate' onChange={frmUpdate.handleChange}/>
+              <input type="text" name='image' className='form-control' value={frmUpdate.values.image} onChange={frmUpdate.handleChange}/>
+              {frmUpdate.errors.image && <p className='text text-danger'>{frmUpdate.errors.image}</p>}
             </div>
             <div className="form-group mx-2 my-2">
               <label htmlFor="deleted" className='me-2'>Deleted: </label>
@@ -108,8 +117,8 @@ const QueryUpdateStore = (props) => {
               <button className='btn btn-dark mt-2' type='submit'>Update</button>
             </div>
         </div>
-      </form> */}
-      <FormUpdateStore />
+      </form>
+      
 
       </div>
   )

@@ -6,11 +6,12 @@ import { NavLink } from 'react-router-dom';
 import UpdateStore from '../ReduxToolkit/UpdateStore';
 import { openModalAction } from '../../redux/reducers/modalReducer';
 import useRedux from '../../CustomHook/useRedux';
+import { deleteStoreActionAsync, getIdDeleteAction } from '../../redux/reducers/storeReducer';
 
 const QueryStoreList = () => {
     
     const {state,dispatch} = useRedux();
-
+  const arrIdDelete = [];
     // biến 
 const columns = [
     {
@@ -62,11 +63,14 @@ const columns = [
   
           <button className='btn btn-danger' onClick={()=>{
             try {
-              const id = [];
-              id.push(Number(record.id));
-              console.log(id);
-              const deleteStore = storeApi.deleteStore(id);
-              console.log(deleteStore);
+              const arrID = [];
+              arrID.push(record.id);
+              dispatch(getIdDeleteAction(arrID));
+              const actionThunk = deleteStoreActionAsync(arrID);
+              dispatch(actionThunk);
+
+              // const deleteStore = storeApi.deleteStore(arrID);
+              // console.log(deleteStore)
               // Handle successful deletion
             } catch (error) {
               // Handle deletion errors

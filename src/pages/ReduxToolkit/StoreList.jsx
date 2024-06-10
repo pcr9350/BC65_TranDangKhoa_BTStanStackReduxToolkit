@@ -17,7 +17,7 @@ const StoreList = () => {
     useEffect(()=>{
         const actionThunk = getStoreListActionApi();
         dispatch(actionThunk)
-    },[])
+    },[storeList])
 
     // biến 
 const columns = [

@@ -28,6 +28,7 @@ export class StoreApi {
     async deleteStore(id) {
         console.log(id)
         const res = await httpStore.delete('/api/Store', id);
+        console.log(res);
         return res.data.content;
     }
 

@@ -26,6 +26,7 @@ const initialState = {
       "deleted": false
   
 }],
+    storeIdDelete: [0],
 }
 
 const storeReducer = createSlice({
@@ -37,6 +38,9 @@ const storeReducer = createSlice({
     },
     getStoreByIdAction: (state, action) => {
       state.storeById = action.payload;
+    },
+    getIdDeleteAction: (state,action) => {
+      state.storeIdDelete = action.payload;
     }
   }, extraReducers: (builder) =>{
     builder.addCase(addStoreActionAsync.fulfilled,(state,action) => {
@@ -48,6 +52,7 @@ const storeReducer = createSlice({
     builder.addCase(addStoreActionAsync.rejected, (state,action) => {
         console.log('error',state,action)
     });
+
     builder.addCase(updateStoreActionAsync.fulfilled,(state,action) => {
       console.log('success',state,action)
   });
@@ -58,10 +63,19 @@ const storeReducer = createSlice({
       console.log('error',state,action)
   });
 
+  builder.addCase(deleteStoreActionAsync.fulfilled,(state,action) => {
+    console.log('success',state,action)
+});
+builder.addCase(deleteStoreActionAsync.pending,(state,action) => {
+    console.log('pending')
+});
+builder.addCase(deleteStoreActionAsync.rejected, (state,action) => {
+    console.log('error',state,action)
+});
   }
 });
 
-export const {getStoreListAction, getStoreByIdAction} = storeReducer.actions
+export const {getStoreListAction, getStoreByIdAction, getIdDeleteAction} = storeReducer.actions
 
 export default storeReducer.reducer
 
@@ -111,10 +125,10 @@ export const updateStoreActionAsync = createAsyncThunk(
   async (storeUpdate, {dispatch,getState}) => {
       const actionLoading = setLoadingAction(true);
       dispatch(actionLoading)
-      console.log(storeUpdate)
+      // console.log(storeUpdate)
       try{
       const res = await httpStore.put(`/api/Store?id=${storeUpdate.id}`, storeUpdate);
-      console.log(res.data.content)
+      // console.log(res.data.content)
       getStoreListActionApi();
       return res.data.content //return về giá trị nào thì ta sẽ nhận được giá trị đó tại fullfil của extrareducer
       }catch (err){
@@ -123,9 +137,29 @@ export const updateStoreActionAsync = createAsyncThunk(
           const actionLoading = setLoadingAction(false);
           dispatch(actionLoading)
           return 'finally' //return về giá trị nào thì ta sẽ nhận được giá trị đó tại fullfil của extraReducer
-      }
-      
+      }   
   },
 )
 
+export const deleteStoreActionAsync = createAsyncThunk(
+  'storeReducer/deleteStoreActionAsync',
+  async (arrID, {dispatch,getState}) => {
+      const actionLoading = setLoadingAction(true);
+      dispatch(actionLoading)
+      // console.log(storeUpdate)
+      try{
+        console.log(arrID)
+      const res = await httpStore.delete('/api/Store', arrID);
+      // console.log(res.data.content)
+      getStoreListActionApi();
+      return res.data.content //return về giá trị nào thì ta sẽ nhận được giá trị đó tại fullfil của extrareducer
+      }catch (err){
+          return Promise.reject(err);
+      }finally {
+          const actionLoading = setLoadingAction(false);
+          dispatch(actionLoading)
+          return 'finally' //return về giá trị nào thì ta sẽ nhận được giá trị đó tại fullfil của extraReducer
+      }   
+  },
+)
 
