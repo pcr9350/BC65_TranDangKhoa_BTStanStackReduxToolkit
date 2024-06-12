@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react'
-import { Space, Table, Tag } from 'antd';
-import { NavLink } from 'react-router-dom';
 import useRedux from '../../CustomHook/useRedux';
-import { getStoreByIdActionApi, getStoreListActionApi, updateStoreActionAsync } from '../../redux/reducers/storeReducer';
-import { httpStore } from '../../util/config';
-
+import { getStoreByIdActionApi, updateStoreActionAsync } from '../../redux/reducers/storeReducer';
 import { useFormik } from 'formik';
-import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
+
 import * as Yup from 'yup'
 
 const UpdateStore = (props) => {
@@ -14,9 +10,9 @@ const UpdateStore = (props) => {
   
   useEffect(()=>{
     //   mounting component
-      const payload = frmUpdate.handleSubmit;
-      const action = setSubmitModalFunctionAction(payload);
-      dispatch(action);
+      // const payload = frmUpdate.handleSubmit;
+      // const action = setSubmitModalFunctionAction(payload);
+      // dispatch(action);
 
       
     const actionThunk = getStoreByIdActionApi(props.id);
@@ -63,7 +59,7 @@ const UpdateStore = (props) => {
         const actionThunk = updateStoreActionAsync(values);
         dispatch(actionThunk)
         
-        getStoreListActionApi();
+        // getStoreListActionApi();
         
       },
       validationSchema: Yup.object().shape({
@@ -75,7 +71,7 @@ const UpdateStore = (props) => {
   return (
     <div className="container">
     <h3>Update Store</h3>
-    <form action="" className='container' onSubmit={frmUpdate.handleSubmit}>
+    <form action="" id='form-update-redux' className='container' onSubmit={frmUpdate.handleSubmit}>
         
         <div className='w-75 mx-auto'>
         <div className="form-group">

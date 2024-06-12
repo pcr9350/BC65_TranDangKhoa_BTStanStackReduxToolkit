@@ -1,8 +1,8 @@
 import { useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
-import { addStoreActionAsync, getStoreListActionApi } from '../../redux/reducers/storeReducer';
-import { setSubmitModalFunctionAction } from '../../redux/reducers/modalReducer';
+import { addStoreActionAsync } from '../../redux/reducers/storeReducer';
+
 import * as Yup from 'yup'
 
 
@@ -31,12 +31,9 @@ const CreateStore = () => {
         deleted: true
       },
       onSubmit: (values) => {
-        // console.log(values);
-  
         // Cách 2: ActionAsync từ createActionThunk
         const actionThunk = addStoreActionAsync(values);
         dispatch(actionThunk);
-        getStoreListActionApi();
 
       },
       validationSchema: Yup.object().shape({
@@ -47,7 +44,7 @@ const CreateStore = () => {
   
     
     return (
-      <form action="" className='container' onSubmit={frmRegister.handleSubmit}>
+      <form action="" id='form-redux' className='container' onSubmit={frmRegister.handleSubmit}>
         <h3>Create Store</h3>
         <div className='w-75 mx-auto'>
             <div className="form-group">
@@ -88,7 +85,7 @@ const CreateStore = () => {
               </div>
             </div>
             <div className="form-group">
-              <button className='btn btn-dark mt-2' type='submit'>Create</button>
+              <button className='btn btn-primary mt-2' type='submit'>Create</button>
             </div>
         </div>
       </form>

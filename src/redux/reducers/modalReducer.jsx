@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     modalTitle:'Default title',
     modalContent: '',
-    onSubmitFunction: ()=>{
-        console.log('modal')
-    }
+    // onSubmitFunction: ()=>{
+    //     console.log('modal')
+    // }
 }
 
 const modalReducer = createSlice({
@@ -17,12 +17,13 @@ const modalReducer = createSlice({
         state.modalTitle = modalTitle;
         state.modalContent = modalContent;
     },
-    setSubmitModalFunctionAction: (state, action)=>{
-        state.onSubmitFunction = action.payload;
-    }
+    // setSubmitModalFunctionAction: (state, action)=>{
+    //     state.onSubmitFunction = action.payload;
+    // }
+    // setSubmitModalFunctionAction
   }
 });
 
-export const {openModalAction, setSubmitModalFunctionAction} = modalReducer.actions
+export const {openModalAction } = modalReducer.actions
 
 export default modalReducer.reducer

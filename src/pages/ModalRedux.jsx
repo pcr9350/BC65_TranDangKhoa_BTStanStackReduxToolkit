@@ -2,8 +2,8 @@ import React from 'react'
 import useRedux from '../CustomHook/useRedux'
 
 const ModalRedux = () => {
-    const {dispatch, state} = useRedux();
-    const {modalTitle, modalContent, onSubmitFunction} = state.modalReducer;
+    const {state} = useRedux();
+    const {modalTitle, modalContent} = state.modalReducer;
 
 
   return (
@@ -21,14 +21,12 @@ const ModalRedux = () => {
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary mx-2" onClick={onSubmitFunction}>Submit</button>
+        {/* <button type="button" className="btn btn-primary mx-2" onClick={onSubmitFunction}>Submit</button> */}
       </div>
       </div>
     </div>
   </div>
 </div>
-
-    
   )
 }
 

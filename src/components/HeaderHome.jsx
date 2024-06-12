@@ -28,10 +28,10 @@ const {state, dispatch} = useRedux();
     <div className="collapse row navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 col-10" style={{fontSize:'13px'}}>
         <li className="nav-item">
-          <NavLink style={({isActive})=>isActive ? {borderRadius:'5px'}:{}} className={({isActive})=>isActive ? 'nav-link bg-white text-dark' : 'nav-link'} aria-current="page" to="/admin">Redux Toolkit</NavLink>
+          <NavLink style={({isActive})=>isActive ? {borderRadius:'5px'}:{}} className={({isActive})=>isActive ? 'nav-link bg-white text-dark' : 'nav-link'} aria-current="page" to="/admin/store-list">Redux Toolkit</NavLink>
         </li>
         <li className="nav-item">
-          <NavLink style={({isActive})=>isActive ? {borderRadius:'5px'}:{}} className={({isActive})=>isActive ? 'nav-link bg-white text-dark' : 'nav-link'} aria-current="page" to="/admin-tanstack">Tanstack Query</NavLink>
+          <NavLink style={({isActive})=>isActive ? {borderRadius:'5px'}:{}} className={({isActive})=>isActive ? 'nav-link bg-white text-dark' : 'nav-link'} aria-current="page" to="/admin-tanstack/query-store-list">Tanstack Query</NavLink>
         </li>
         
        
